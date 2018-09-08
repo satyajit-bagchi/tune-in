@@ -79,7 +79,7 @@
         var postData = {
           "notes":[{
               "duration": 0.39,
-              "name": notes[noteplayed],
+              "name": noteplayed,
               "time": 0
             }
           ]// Get a key for a new Post.
@@ -90,7 +90,7 @@ var synth = new Tone.Synth().toMaster();
 
 function pushSound(note) {
     synth.triggerAttack(notes[note]);
-    notesPlayed = notesplayed + note;
+  //  notesPlayed = notesplayed + note;
     writeMelodyJson(notes[note]);
 }
 
