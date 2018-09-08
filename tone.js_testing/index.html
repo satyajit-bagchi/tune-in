@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <meta charset="utf-8">
+	<meta charset="utf-8">
 	<title>Synth</title>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -22,17 +23,19 @@
 	</script>
 
 </head>
+
 <body>
 	<style type="text/css">
 		img {
 			width: 80%;
 			max-width: 700px;
 			margin-left: auto;
-    		margin-right: auto;
-    		display: block;
+			margin-right: auto;
+			display: block;
 		}
+
 		#Keyboard {
-			margin: 3px!important;
+			margin: 3px !important;
 		}
 	</style>
 	<div id="Content">
@@ -42,7 +45,22 @@
 	</div>
 
 	<script>
-		var synth = new Tone.PolySynth(8).toMaster();
+		init()
+
+		// if (Tone.context.state !== "running") {
+		// 	console.log("not running")
+		// 	// ... insert code to show interface element to collect user gesture here ...
+		// 	document.querySelector('button').addEventListener('click', function () {
+		// 		Tone.context.resume();
+		// 		init();
+		// 	});
+		// } else {
+		// 	console.log("running")
+		// 	// audio context is already running, don't need the user gesture
+		// 	init();
+		// }
+		function init() {
+			var synth = new Tone.PolySynth(8).toMaster();
 			/**{"oscillator" : {
 				"type" : "amtriangle",
 				"harmonicity" : 0.5,
@@ -57,21 +75,23 @@
 			},
 			"portamento" : 0.05}
     ).toMaster();**/
-    var midi = JSON.parse('{   "header": {     "PPQ": 256,     "timeSignature": [       3,       4     ],     "bpm": 100,     "name": ""   },   "startTime": 0,   "duration": 41.39999999999999,   "tracks": [     {       "startTime": 0,       "duration": 0,       "length": 0,       "notes": [],       "controlChanges": {},       "id": 0     },     {       "startTime": 0,       "duration": 41.39999999999999,       "length": 74,       "notes": [         {           "name": "G4",           "midi": 67,           "time": 0,           "velocity": 0.41732283464566927,           "duration": 0.9164062499999999         },         {           "name": "C4",           "midi": 60,           "time": 0,           "velocity": 0.41732283464566927,           "duration": 1.7999999999999998         },         {           "name": "A4",           "midi": 69,           "time": 0.8999999999999999,           "velocity": 0.4409448818897638,           "duration": 0.3046874999999998         },         {           "name": "G4",           "midi": 67,           "time": 1.1999999999999997,           "velocity": 0.48031496062992124,           "duration": 0.6117187500000001         }       ],       "controlChanges": {         "7": [           {             "number": 7,             "time": 0,             "value": 0.7874015748031497           },           {             "number": 7,             "time": 0,             "value": 0.7874015748031497           }         ],         "10": [           {             "number": 10,             "time": 0,             "value": 0.4015748031496063           },           {             "number": 10,             "time": 0,             "value": 0.4015748031496063           }         ],         "64": [           {             "number": 64,             "time": 0,             "value": 0           },           {             "number": 64,             "time": 0,             "value": 0           }         ],         "91": [           {             "number": 91,             "time": 0,             "value": 0.3779527559055118           },           {             "number": 91,             "time": 0,             "value": 0.3779527559055118           }         ],         "121": [           {             "number": 121,             "time": 0,             "value": 0           },           {             "number": 121,             "time": 0,             "value": 0           }         ]       },       "id": 1,       "name": "Piano",       "instrumentNumber": 0,       "instrument": "acoustic grand piano",       "instrumentFamily": "piano",       "channelNumber": 0,       "isPercussion": false     }   ] }');
-  // make sure you set the tempo before you schedule the events
-  Tone.Transport.bpm.value = midi.header.bpm
+			var midi = JSON.parse('{   "header": {     "PPQ": 256,     "timeSignature": [       3,       4     ],     "bpm": 100,     "name": ""   },   "startTime": 0,   "duration": 41.39999999999999,   "tracks": [     {       "startTime": 0,       "duration": 0,       "length": 0,       "notes": [],       "controlChanges": {},       "id": 0     },     {       "startTime": 0,       "duration": 41.39999999999999,       "length": 74,       "notes": [         {           "name": "G4",           "midi": 67,           "time": 0,           "velocity": 0.41732283464566927,           "duration": 0.9164062499999999         },         {           "name": "C4",           "midi": 60,           "time": 0,           "velocity": 0.41732283464566927,           "duration": 1.7999999999999998         },         {           "name": "A4",           "midi": 69,           "time": 0.8999999999999999,           "velocity": 0.4409448818897638,           "duration": 0.3046874999999998         },         {           "name": "G4",           "midi": 67,           "time": 1.1999999999999997,           "velocity": 0.48031496062992124,           "duration": 0.6117187500000001         }       ],       "controlChanges": {         "7": [           {             "number": 7,             "time": 0,             "value": 0.7874015748031497           },           {             "number": 7,             "time": 0,             "value": 0.7874015748031497           }         ],         "10": [           {             "number": 10,             "time": 0,             "value": 0.4015748031496063           },           {             "number": 10,             "time": 0,             "value": 0.4015748031496063           }         ],         "64": [           {             "number": 64,             "time": 0,             "value": 0           },           {             "number": 64,             "time": 0,             "value": 0           }         ],         "91": [           {             "number": 91,             "time": 0,             "value": 0.3779527559055118           },           {             "number": 91,             "time": 0,             "value": 0.3779527559055118           }         ],         "121": [           {             "number": 121,             "time": 0,             "value": 0           },           {             "number": 121,             "time": 0,             "value": 0           }         ]       },       "id": 1,       "name": "Piano",       "instrumentNumber": 0,       "instrument": "acoustic grand piano",       "instrumentFamily": "piano",       "channelNumber": 0,       "isPercussion": false     }   ] }');
+			// make sure you set the tempo before you schedule the events
+			Tone.Transport.bpm.value = midi.header.bpm
 
-  // pass in the note events from one of the tracks as the second argument to Tone.Part
-  var midiPart = new Tone.Part(function(time, note) {
+			// pass in the note events from one of the tracks as the second argument to Tone.Part
+			var midiPart = new Tone.Part(function (time, note) {
 
-    //use the events to play the synth
-    synth.triggerAttackRelease(note.name, note.duration, time, note.velocity)
+				//use the events to play the synth
+				synth.triggerAttackRelease(note.name, note.duration, time, note.velocity)
 
-  }, midi.tracks[0].notes).start();
+			}, midi.tracks[1].notes).start();
 
-  // start the transport to hear the events
-  Tone.Transport.start();
+			// start the transport to hear the events
+			Tone.Transport.start();
+		}
 	</script>
 
 </body>
+
 </html>

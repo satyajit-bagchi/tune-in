@@ -1,0 +1,49 @@
+<html>
+
+<body>
+
+    <h1 id="bigOne"></h1>
+    <script src="https://www.gstatic.com/firebasejs/5.4.2/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyD0cf2mNyPChLU8FAVUhgw2rwVsLjKYty8",
+            authDomain: "tune-in-b3959.firebaseapp.com",
+            databaseURL: "https://tune-in-b3959.firebaseio.com",
+            projectId: "tune-in-b3959",
+            storageBucket: "tune-in-b3959.appspot.com",
+            messagingSenderId: "219762201728"
+        };
+        firebase.initializeApp(config);
+
+        var dbRef = firebase.database().ref()
+        dbRef.on('value', snapshot => {
+            console.log('retrieving')
+            console.log(snapshot.val())
+            play(snapshot.val())
+        });
+
+        function play(midi) {
+            var synth = new Tone.PolySynth(8).toMaster();
+
+            // make sure you set the tempo before you schedule the events
+            Tone.Transport.bpm.value = midi.header.bpm
+
+            // pass in the note events from one of the tracks as the second argument to Tone.Part
+            var midiPart = new Tone.Part(function (time, note) {
+
+                //use the events to play the synth
+                synth.triggerAttackRelease(note.name, note.duration, time, note.velocity)
+
+            }, midi.tracks[1].notes).start();
+
+            // start the transport to hear the events
+            Tone.Transport.start();
+        }
+    </script>
+
+
+
+</body>
+
+</html>
