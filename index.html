@@ -3,6 +3,17 @@
 <body>
 
     <h1 id="bigOne"></h1>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<link rel="icon" type="image/png" sizes="174x174" href="./style/favicon.png">
+
+	<script src="https://tonejs.github.io/build/Tone.js"></script>
+	<script src="./scripts/jquery.min.js"></script>
+	<script src="./scripts/draggabilly.js"></script>
+	<script src="./scripts/StartAudioContext.js"></script>
+	<script src="./scripts/Interface.js"></script>
+	<script src="https://tonejs.github.io/Logo/build/Logo.js"></script>
+	<script src="./scripts/Keyboard.js"></script>
+
     <script src="https://www.gstatic.com/firebasejs/5.4.2/firebase.js"></script>
     <script>
         // Initialize Firebase
@@ -16,7 +27,7 @@
         };
         firebase.initializeApp(config);
 
-        var dbRef = firebase.database().ref()
+        var dbRef = firebase.database().ref().child('midi')
         dbRef.on('value', snapshot => {
             console.log('retrieving')
             console.log(snapshot.val())
