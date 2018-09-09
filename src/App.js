@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import PlayButton from './PlayButton'
 import firebase from 'firebase'
 import Tone from 'tone'
 import StatusIndicator from './StatusIndicator';
+import RecordingCompleteOptionsPane from './RecordingCompleteOptionsPane';
 
 class App extends Component {
   constructor(props) {
@@ -18,6 +18,7 @@ class App extends Component {
       is_active_location: false,
       is_recording: false,
       is_playing: false,
+      is_playing_back: false,
       recording_complete: false,
       server_midi: {},
       local_midi: {},
@@ -28,6 +29,9 @@ class App extends Component {
     this.synth = new Tone.PolySynth(8).toMaster();
 
     this.handleOnPlay = this.handleOnPlay.bind(this);
+    this.handleOnPlayback = this.handleOnPlayback.bind(this);
+    this.handleOnReset = this.handleOnReset.bind(this);
+    this.handleOnShare = this.handleOnShare.bind(this);
   }
 
   componentDidMount() {
@@ -65,7 +69,7 @@ class App extends Component {
         is_playing: false,
         recording_complete: false,
         server_midi: serverMidi,
-        local_midi: {},
+        local_midi: serverMidi,
         playTimeRemaining: finishTime
       }
 
@@ -74,7 +78,89 @@ class App extends Component {
   }
 
   handleOnPlay() {
-    this.playmidi()
+    var finishTime = 0
+
+    var lastIndex = this.state.server_midi.length - 1
+    if (lastIndex > -1) {
+      var finalNote = this.state.server_midi[lastIndex]
+      finishTime = finalNote.time + finalNote.duration
+    }
+
+    var newState = this.state
+    newState.is_playing = true
+    newState.playTimeRemaining = finishTime
+    this.setState(newState);
+
+    var obj = this
+
+    new Tone.Part(function (time, note) {
+      obj.synth.triggerAttackRelease(note.name, note.duration, time, 1)
+
+    }, this.state.server_midi).start();
+
+    var timer = new Tone.Loop(function (time) {
+      obj.state.playTimeRemaining = obj.state.playTimeRemaining - 0.1
+      obj.setState(obj.state)
+      if (obj.state.playTimeRemaining < 1) {
+        timer.stop()
+      }
+      console.log('player tick')
+    }, 0.1).start();
+
+    new Tone.Event(function (time, note) {
+      var newState = obj.state
+      newState.is_playing = false
+      obj.setState(newState)
+      if (obj.state.is_active_location) {
+        obj.startRecording()
+      }
+      else {
+        Tone.Transport.stop()
+      }
+    }).start(finishTime);
+
+    Tone.Transport.start();
+  }
+
+  handleOnPlayback() {
+    var newState = this.state
+    newState.is_playing_back = true
+    this.setState(newState)
+
+    var finishTime;
+
+    var lastIndex = this.state.local_midi.length - 1
+    if (lastIndex > -1) {
+      var finalNote = this.state.local_midi[lastIndex]
+      finishTime = finalNote.time + finalNote.duration
+    }
+
+    var obj = this
+
+    new Tone.Part(function (time, note) {
+      obj.synth.triggerAttackRelease(note.name, note.duration, time, 1)
+
+    }, this.state.local_midi).start();
+
+    new Tone.Event(function (time, note) {
+      var newState = obj.state
+      newState.is_playing = false
+      obj.setState(newState)
+      Tone.Transport.stop()
+    }).start(finishTime);
+
+    Tone.Transport.start();
+  }
+
+  handleOnReset() {
+    var newState = this.state
+    newState.recording_complete = false
+    newState.local_midi = this.state.server_midi
+    this.setState(newState)
+  }
+
+  handleOnShare() {
+    // TODO: Submit local_midi to firebase and toggle the active location
   }
 
   startRecording() {
@@ -97,52 +183,6 @@ class App extends Component {
     }, 1).start();
   }
 
-  playmidi() {
-    var finishTime = 0
-
-    var lastIndex = this.state.server_midi.length - 1
-    if (lastIndex > -1) {
-        var finalNote = this.state.server_midi[lastIndex]
-        finishTime = finalNote.time + finalNote.duration
-    }
-
-    var newState = this.state
-    newState.is_playing = true
-    newState.playTimeRemaining = finishTime
-    this.setState(newState);
-
-    var obj = this    
-
-    new Tone.Part(function (time, note) {
-        obj.synth.triggerAttackRelease(note.name, note.duration, time, 1)
-
-    }, this.state.server_midi).start();
-
-    var timer = new Tone.Loop(function (time) {
-      obj.state.playTimeRemaining = obj.state.playTimeRemaining - 0.1
-      obj.setState(obj.state)
-      if (obj.state.playTimeRemaining < 1) {
-        timer.stop()
-      }
-      console.log('player tick')
-    }, 0.1).start();
-
-    new Tone.Event(function (time, note) {
-      var newState = obj.state
-      newState.is_playing = false
-      obj.setState(newState)
-        if (obj.state.is_active_location){
-          obj.startRecording()
-        }
-        else {
-          Tone.Transport.stop()
-        }
-    }).start(finishTime);
-
-    // start the transport to hear the events
-    Tone.Transport.start();
-}
-
   render() {
     return (
       <div className="App">
@@ -158,6 +198,12 @@ class App extends Component {
           disabled={this.state.is_playing || this.state.is_recording || this.state.server_midi[0] === undefined}
           visible={!this.state.recording_complete}
           onPlay={this.handleOnPlay} />
+        <RecordingCompleteOptionsPane
+          visible={this.state.recording_complete}
+          disabled={this.state.is_playing_back}
+          onPlayback={this.handleOnPlayback}
+          onReset={this.handleOnReset}
+          onShare={this.handleOnShare} />
       </div>
     );
   }

@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import { timingSafeEqual } from 'crypto';
 
-class StatusIndicator extends React.Component {
+class StatusIndicator extends Component {
     render() {
 
         var text = ""
-        if (!this.props.isReady)
-        {
+        if (!this.props.isReady) {
             text = "Loading data..."
         }
         else if (!this.props.isActiveLocation) {
@@ -26,6 +24,9 @@ class StatusIndicator extends React.Component {
             }
             else if (this.props.recordingComplete) {
                 text = "Recording complete. You can play it back to see how you like it. If you're happy with it, press share to transmit it to our sister site. Otherwise you can hit reset to start over."
+            }
+            else if (this.props.isPlayingBack) {
+
             }
             else {
                 text = "Ready for your submission. Press play to listen to the current composition and add your inputs to the end."

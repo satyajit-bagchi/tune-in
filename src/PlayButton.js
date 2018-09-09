@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import Tone from 'tone'
 
-class PlayButton extends React.Component {
+class PlayButton extends Component {
     render() {
         if (this.props.visible){
             return (
