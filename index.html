@@ -17,14 +17,14 @@
   var notesplayed = [];
 
   var notes = [
-    "440", "466.164", "493.883", "523.251", "554.365", "587.330", "622.254", "659.255", "698.456", "739.989", "783.991", "830.609","880.000"
+    "523.251", "554.365", "587.33", "622.254", "659.255", "698.456", "739.989", "783.991", "830.609", "880", "932.328", "987.767", "1046.5", "1108.73", "1174.659", "1244.508", "1318.51", "1396.913", "1479.978", "1567.982", "1661.219", "1760", "1864.655", "1975.533"
   ];
 
-  function writeMelodyJson(noteplayed){
+  function writeMelodyJson(noteplayed, noteduration){
         // Create an entry
-        var postData = {
+        postData = {
           "notes":[{
-              "duration": 0.39,
+              "duration": noteduration/1000,
               "name": noteplayed,
               "time": 0
             }
@@ -39,12 +39,12 @@ function pushSound(note) {
     timer()
     durationTimer()
     synth.triggerAttack(notes[note]);
-    writeMelodyJson(notes[note]);
 }
 
 foo = {}
 note_list = []
 function stopSound(note) {
+    writeMelodyJson(notes[note], duration);
     clearTimeout(d);
     synth.triggerRelease();
     foo = {
@@ -69,7 +69,7 @@ function stopSound(note) {
         };
         firebase.initializeApp(config);
 
-        var dbRef = firebase.database().ref().child('midislim')
+        var dbRef = firebase.database().ref().child('midiwrite')
         dbRef.on('value', snapshot => {
             console.log('retrieving')
             console.log(snapshot.val())
@@ -77,7 +77,7 @@ function stopSound(note) {
         });
 
         function play(midi) {
-            var synth = new Tone.PolySynth(8).toMaster();
+            //var synth = new Tone.PolySynth(8).toMaster();
 
             // pass in the note events from one of the tracks as the second argument to Tone.Part
             var midiPart = new Tone.Part(function (time, note) {
