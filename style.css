@@ -1,0 +1,56 @@
+body {
+background-color: #96CDCD;
+}
+
+#container1 {
+background-image: url("https://graphicburger.com/wp-content/uploads/2017/09/6-Fine-Wood-Textures-Vol3-600.jpg");
+margin: auto;
+width: 724px;
+height: 175px;
+border-radius: 4px;
+}
+
+#container2 {
+margin: auto;
+background-color: black;
+overflow: overlay;
+width: 686px;
+/*position: fixed; */
+padding-top: 15px;
+padding-left: 10px;
+padding-right: 10px;
+padding-bottom: 5px;
+border-radius 20px;
+}
+.key {
+float: left;
+position: relative;
+border-radius: 2px;
+}
+
+.white_key {
+background-color: white;
+border:1px solid black;
+height: 100px;
+width: 12px;
+z-index: 1;
+}
+
+.white_key:active {
+height: 98px;
+border-radius: 3px;
+}
+
+.black_key {
+background-color: black;
+height: 70px;
+width: 10px;
+margin-left: -5px;
+margin-right: -5px;
+z-index: 2;
+}
+
+.black_key:active {
+height: 68px;
+border-radius: 2.5px;
+}
