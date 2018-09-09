@@ -5,9 +5,9 @@ class RecordingCompleteOptionsPane extends Component {
         if (this.props.visible) {
             return (
                 <div>
-                    <button onClick={() => this.playback()} disabled={this.props.disabled}>Play it back</button>
-                    <button onClick={() => this.reset()} disabled={this.props.disabled}>Reset</button>
-                    <button onClick={() => this.share()} disabled={this.props.disabled}>Share</button>
+                    <button class="btn btn-info" onClick={() => this.playback()} disabled={this.props.disabled}>Play it back</button>
+                    <button class="btn btn-danger" onClick={() => this.reset()} disabled={this.props.disabled}>Reset</button>
+                    <button class="btn btn-primary" onClick={() => this.share()} disabled={this.props.disabled}>Share</button>
                 </div>
             );
         }

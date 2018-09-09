@@ -4,10 +4,10 @@ class PlayButton extends Component {
     render() {
         if (this.props.visible){
             return (
-                <button onClick={() => this.playmidi()} disabled={this.props.disabled}>Play</button>
+                <button className="btn btn-success"onClick={() => this.playmidi()} disabled={this.props.disabled}>Play</button>
             );
         }
-        return null        
+        return null
     }
 
     playmidi() {
