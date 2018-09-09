@@ -1,4 +1,7 @@
 <html>
+<head>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
 <body>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	<link rel="icon" type="image/png" sizes="174x174" href="./style/favicon.png">
@@ -10,70 +13,13 @@
 	<script src="https://tonejs.github.io/Logo/build/Logo.js"></script>
 	<script src="./scripts/Keyboard.js"></script>
   <script src="https://www.gstatic.com/firebasejs/5.4.2/firebase.js"></script>
-  <style>
-  body {
-  background-color: #96CDCD;
-}
-
-#container1 {
-  background-image: url("https://graphicburger.com/wp-content/uploads/2017/09/6-Fine-Wood-Textures-Vol3-600.jpg");
-  margin: auto;
-  width: 724px;
-  height: 175px;
-  border-radius: 4px;
-}
-
-#container2 {
-  margin: auto;
-  background-color: black;
-  overflow: overlay;
-  width: 686px;
-  /*position: fixed; */
-  padding-top: 15px;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-bottom: 5px;
-  border-radius 20px;
-}
-.key {
-  float: left;
-  position: relative;
-  border-radius: 2px;
-}
-
-.white_key {
-  background-color: white;
-  border:1px solid black;
-  height: 100px;
-  width: 12px;
-  z-index: 1;
-}
-
-.white_key:active {
-  height: 98px;
-  border-radius: 3px;
-}
-
-.black_key {
-  background-color: black;
-  height: 70px;
-  width: 10px;
-  margin-left: -5px;
-  margin-right: -5px;
-  z-index: 2;
-}
-
-.black_key:active {
-  height: 68px;
-  border-radius: 2.5px;
-}
-
-</style>
   <script>
   var notesplayed = [];
+
   var notes = [
-    "440", "880", "1200", "440", "880", "1200", "440", "880", "1200", "440", "880", "1200"
+    "440", "466.164", "493.883", "523.251", "554.365", "587.330", "622.254", "659.255", "698.456", "739.989", "783.991", "830.609","880.000"
   ];
+
   function writeMelodyJson(noteplayed){
         // Create an entry
         var postData = {
@@ -162,150 +108,8 @@ function stopSound() {
         <div class='black_key key' onmousedown='pushSound(10)' onmouseup='stopSound()'></div>
         <div class='white_key key' onmousedown='pushSound(11)' onmouseup='stopSound()'></div>
         <div onmousedown='pushSound(11)' onmouseup='stopSound()'></div>
-        <div class='white_key key' onmousedown='pushSound(0)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(0)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(1)' onmouseup='stopSound()'></div>
-        <div class='black_key key' onmousedown='pushSound(1)' onmouseup='stopSound()'></div>
-        <div class='white_key key' onmousedown='pushSound(2)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(2)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(3)' onmouseup='stopSound()'></div>
-        <div class='black_key key' onmousedown='pushSound(3)' onmouseup='stopSound()'></div>
-        <div class='white_key key' onmousedown='pushSound(4)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(4)' onmouseup='stopSound()'></div>
-        <div class='white_key key' onmousedown='pushSound(5)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(5)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(6)' onmouseup='stopSound()'></div>
-        <div class='black_key key' onmousedown='pushSound(6)' onmouseup='stopSound()'></div>
-        <div class='white_key key' onmousedown='pushSound(7)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(7)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(8)' onmouseup='stopSound()'></div>
-        <div class='black_key key' onmousedown='pushSound(8)' onmouseup='stopSound()'></div>
-        <div class='white_key key' onmousedown='pushSound(9)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(9)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(10)' onmouseup='stopSound()'></div>
-        <div class='black_key key' onmousedown='pushSound(10)' onmouseup='stopSound()'></div>
-        <div class='white_key key' onmousedown='pushSound(11)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(11)' onmouseup='stopSound()'></div>
-        <div class='white_key key' onmousedown='pushSound(0)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(0)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(1)' onmouseup='stopSound()'></div>
-        <div class='black_key key' onmousedown='pushSound(1)' onmouseup='stopSound()'></div>
-        <div class='white_key key' onmousedown='pushSound(2)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(2)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(3)' onmouseup='stopSound()'></div>
-        <div class='black_key key' onmousedown='pushSound(3)' onmouseup='stopSound()'></div>
-        <div class='white_key key' onmousedown='pushSound(4)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(4)' onmouseup='stopSound()'></div>
-        <div class='white_key key' onmousedown='pushSound(5)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(5)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(6)' onmouseup='stopSound()'></div>
-        <div class='black_key key' onmousedown='pushSound(6)' onmouseup='stopSound()'></div>
-        <div class='white_key key' onmousedown='pushSound(7)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(7)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(8)' onmouseup='stopSound()'></div>
-        <div class='black_key key' onmousedown='pushSound(8)' onmouseup='stopSound()'></div>
-        <div class='white_key key' onmousedown='pushSound(9)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(9)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(10)' onmouseup='stopSound()'></div>
-        <div class='black_key key' onmousedown='pushSound(10)' onmouseup='stopSound()'></div>
-        <div class='white_key key' onmousedown='pushSound(11)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(11)' onmouseup='stopSound()'></div>
-        <div class='white_key key' onmousedown='pushSound(0)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(0)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(1)' onmouseup='stopSound()'></div>
-        <div class='black_key key' onmousedown='pushSound(1)' onmouseup='stopSound()'></div>
-        <div class='white_key key' onmousedown='pushSound(2)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(2)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(3)' onmouseup='stopSound()'></div>
-        <div class='black_key key' onmousedown='pushSound(3)' onmouseup='stopSound()'></div>
-        <div class='white_key key' onmousedown='pushSound(4)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(4)' onmouseup='stopSound()'></div>
-        <div class='white_key key' onmousedown='pushSound(5)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(5)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(6)' onmouseup='stopSound()'></div>
-        <div class='black_key key' onmousedown='pushSound(6)' onmouseup='stopSound()'></div>
-        <div class='white_key key' onmousedown='pushSound(7)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(7)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(8)' onmouseup='stopSound()'></div>
-        <div class='black_key key' onmousedown='pushSound(8)' onmouseup='stopSound()'></div>
-        <div class='white_key key' onmousedown='pushSound(9)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(9)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(10)' onmouseup='stopSound()'></div>
-        <div class='black_key key' onmousedown='pushSound(10)' onmouseup='stopSound()'></div>
-        <div class='white_key key' onmousedown='pushSound(11)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(11)' onmouseup='stopSound()'></div>
-        <div class='white_key key' onmousedown='pushSound(0)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(0)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(1)' onmouseup='stopSound()'></div>
-        <div class='black_key key' onmousedown='pushSound(1)' onmouseup='stopSound()'></div>
-        <div class='white_key key' onmousedown='pushSound(2)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(2)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(3)' onmouseup='stopSound()'></div>
-        <div class='black_key key' onmousedown='pushSound(3)' onmouseup='stopSound()'></div>
-        <div class='white_key key' onmousedown='pushSound(4)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(4)' onmouseup='stopSound()'></div>
-        <div class='white_key key' onmousedown='pushSound(5)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(5)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(6)' onmouseup='stopSound()'></div>
-        <div class='black_key key' onmousedown='pushSound(6)' onmouseup='stopSound()'></div>
-        <div class='white_key key' onmousedown='pushSound(7)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(7)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(8)' onmouseup='stopSound()'></div>
-        <div class='black_key key' onmousedown='pushSound(8)' onmouseup='stopSound()'></div>
-        <div class='white_key key' onmousedown='pushSound(9)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(9)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(10)' onmouseup='stopSound()'></div>
-        <div class='black_key key' onmousedown='pushSound(10)' onmouseup='stopSound()'></div>
-        <div class='white_key key' onmousedown='pushSound(11)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(11)' onmouseup='stopSound()'></div>
-        <div class='white_key key' onmousedown='pushSound(0)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(0)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(1)' onmouseup='stopSound()'></div>
-        <div class='black_key key' onmousedown='pushSound(1)' onmouseup='stopSound()'></div>
-        <div class='white_key key' onmousedown='pushSound(2)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(2)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(3)' onmouseup='stopSound()'></div>
-        <div class='black_key key' onmousedown='pushSound(3)' onmouseup='stopSound()'></div>
-        <div class='white_key key' onmousedown='pushSound(4)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(4)' onmouseup='stopSound()'></div>
-        <div class='white_key key' onmousedown='pushSound(5)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(5)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(6)' onmouseup='stopSound()'></div>
-        <div class='black_key key' onmousedown='pushSound(6)' onmouseup='stopSound()'></div>
-        <div class='white_key key' onmousedown='pushSound(7)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(7)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(8)' onmouseup='stopSound()'></div>
-        <div class='black_key key' onmousedown='pushSound(8)' onmouseup='stopSound()'></div>
-        <div class='white_key key' onmousedown='pushSound(9)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(9)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(10)' onmouseup='stopSound()'></div>
-        <div class='black_key key' onmousedown='pushSound(10)' onmouseup='stopSound()'></div>
-        <div class='white_key key' onmousedown='pushSound(11)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(11)' onmouseup='stopSound()'></div>
-        <div class='white_key key' onmousedown='pushSound(0)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(0)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(1)' onmouseup='stopSound()'></div>
-        <div class='black_key key' onmousedown='pushSound(1)' onmouseup='stopSound()'></div>
-        <div class='white_key key' onmousedown='pushSound(2)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(2)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(3)' onmouseup='stopSound()'></div>
-        <div class='black_key key' onmousedown='pushSound(3)' onmouseup='stopSound()'></div>
-        <div class='white_key key' onmousedown='pushSound(4)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(4)' onmouseup='stopSound()'></div>
-        <div class='white_key key' onmousedown='pushSound(5)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(5)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(6)' onmouseup='stopSound()'></div>
-        <div class='black_key key' onmousedown='pushSound(6)' onmouseup='stopSound()'></div>
-        <div class='white_key key' onmousedown='pushSound(7)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(7)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(8)' onmouseup='stopSound()'></div>
-        <div class='black_key key' onmousedown='pushSound(8)' onmouseup='stopSound()'></div>
-        <div class='white_key key' onmousedown='pushSound(9)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(9)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(10)' onmouseup='stopSound()'></div>
-        <div class='black_key key' onmousedown='pushSound(10)' onmouseup='stopSound()'></div>
-        <div class='white_key key' onmousedown='pushSound(11)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(11)' onmouseup='stopSound()'></div>
+        <div class='white_key key' onmousedown='pushSound(12)' onmouseup='stopSound()'></div>
+        <div onmousedown='pushSound(12)' onmouseup='stopSound()'></div>
       </div>
     </div>
 
