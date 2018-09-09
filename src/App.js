@@ -61,8 +61,9 @@ class App extends Component {
   handleOnPlay(isPlaying) {
     
     var newState = this.state    
-    newState.is_playing = isPlaying
-    if (this.state.is_playing === true && isPlaying === false && this.state.is_active_location === true)
+    var shouldTransitionToRecord = this.state.is_playing === true && isPlaying === false && this.state.is_active_location === true
+    console.log(shouldTransitionToRecord)
+    if (shouldTransitionToRecord)
     {
       newState.is_recording = true
     }
@@ -70,6 +71,8 @@ class App extends Component {
     {
       Tone.Transport.stop()
     }
+    
+    newState.is_playing = isPlaying
     this.setState(newState)
     console.log(newState)
   }
