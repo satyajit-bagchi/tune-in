@@ -69,5 +69,4 @@ class Keyboard extends Component {
     }
 }
 
-
 export default Keyboard;
