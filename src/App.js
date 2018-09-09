@@ -12,7 +12,7 @@ class App extends Component {
     super(props);
 
     this.location_id = 1;
-    this.recording_interval = 3;
+    this.recording_interval = 5;
     this.notes = [
       "523.251", "554.365", "587.33", "622.254", "659.255", "698.456", "739.989", "783.991", "830.609", "880", "932.328", "987.767", "1046.5", "1108.73", "1174.659", "1244.508", "1318.51", "1396.913", "1479.978", "1567.982", "1661.219", "1760", "1864.655", "1975.533"
     ]
@@ -36,7 +36,7 @@ class App extends Component {
 
     this.note_pitch = ""
     this.note_time = 0.0
-    this.note_duration = 0.0 
+    this.note_duration = 0.0
     this.note_relative = 0.0
 
     this.handleOnPlay = this.handleOnPlay.bind(this);
@@ -123,17 +123,19 @@ class App extends Component {
     }, 0.1).start();
 
     var ender = new Tone.Event(function (time, note) {
-      var newState = obj.state
-      newState.is_playing = false
-      obj.setState(newState)
-      if (obj.state.is_active_location && !obj.state.is_playing_back) {
-        obj.playFinishTime = finishTime
-        console.log('play end', obj.playFinishTime)
-        obj.startRecording()
-      }
-      else {
-        Tone.Transport.stop()
-        Tone.Transport.clear(ender)
+      if (obj.state.is_playing) {
+        var newState = obj.state
+        newState.is_playing = false
+        obj.setState(newState)
+        if (obj.state.is_active_location && !obj.state.is_playing_back) {
+          obj.playFinishTime = finishTime
+          console.log('play end', obj.playFinishTime)
+          obj.startRecording()
+        }
+        else {
+          Tone.Transport.stop()
+          Tone.Transport.clear(ender)
+        }
       }
     }).start(finishTime);
 
@@ -200,8 +202,6 @@ class App extends Component {
   }
 
   handleOnPlayback() {
-    Tone.context.dispose()
-    Tone.context = new AudioContext()
     var newState = this.state
     newState.is_playing_back = true
     this.setState(newState)
@@ -211,7 +211,7 @@ class App extends Component {
     var lastIndex = this.state.local_midi.length - 1
     if (lastIndex > -1) {
       var finalNote = this.state.local_midi[lastIndex]
-      finishTime = finalNote.time + finalNote.duration 
+      finishTime = finalNote.time + finalNote.duration
     }
 
     var obj = this
@@ -222,10 +222,13 @@ class App extends Component {
     }, this.state.local_midi).start();
 
     var ender = new Tone.Event(function (time, note) {
-      var newState = obj.state
-      newState.is_playing_back = false
-      obj.setState(newState)
-      Tone.Transport.stop()
+      if (obj.state.is_playing_back)
+      {
+        var newState = obj.state
+        newState.is_playing_back = false
+        obj.setState(newState)
+        Tone.Transport.stop()
+      }      
     }).start(finishTime);
 
     Tone.Transport.start();
@@ -241,8 +244,7 @@ class App extends Component {
   handleOnShare() {
     var nextLocation = 1
 
-    if (this.activeLocation === 1)
-    {
+    if (this.activeLocation === 1) {
       nextLocation = 2
     }
 
