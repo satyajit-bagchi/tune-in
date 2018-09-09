@@ -44,7 +44,6 @@ function pushSound(note) {
 foo = {}
 note_list = []
 function stopSound(note) {
-    writeMelodyJson(notes[note], duration);
     clearTimeout(d);
     synth.triggerRelease();
     foo = {
