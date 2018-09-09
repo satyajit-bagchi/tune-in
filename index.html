@@ -35,13 +35,16 @@
 var synth = new Tone.Synth().toMaster();
 
 function pushSound(note) {
+    duration = 0
+    timer()
+    durationTimer()
     synth.triggerAttack(notes[note]);
-  //  notesPlayed = notesplayed + note;
     writeMelodyJson(notes[note]);
 }
 
 
 function stopSound() {
+    clearTimeout(d);
     synth.triggerRelease();
 }
 
@@ -59,7 +62,7 @@ function stopSound() {
         };
         firebase.initializeApp(config);
 
-        var dbRef = firebase.database().ref().child('midiwrite')
+        var dbRef = firebase.database().ref().child('midislim')
         dbRef.on('value', snapshot => {
             console.log('retrieving')
             console.log(snapshot.val())
@@ -113,6 +116,34 @@ function stopSound() {
       </div>
     </div>
 
+<h1 id="time"><time>0</time></h1>
+<h1 id="duration"><time>0</time></h1>
 
 </body>
+<script>
+  //Timer parts
+  var timeDisplay = document.getElementById('time'),
+      durationDisplay = document.getElementById('duration'),
+      time = 0, duration = 0,
+      t, d;
+
+  function timer() {
+      t = setTimeout(add, 1);
+  }
+  function durationTimer(){
+    d = setTimeout(durationAdd, 1);
+  }
+  function add() {
+      time++;
+      timeDisplay.textContent = time;
+      timer();
+  }
+  function durationAdd(){
+    duration++;
+    durationDisplay.textContent = duration;
+    durationTimer();
+
+  }
+
+</script>
 </html>
