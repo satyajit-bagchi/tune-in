@@ -12,16 +12,17 @@
   <script src="https://www.gstatic.com/firebasejs/5.4.2/firebase.js"></script>
   <link rel="stylesheet" type="text/css" href="./style.css">
   <script>
-  var notesPlayed = [];
+  var notesPlayed = 0;
+  var currentNote;
   var notes = [
     "523.251", "554.365", "587.33", "622.254", "659.255", "698.456", "739.989", "783.991", "830.609", "880", "932.328", "987.767", "1046.5", "1108.73", "1174.659", "1244.508", "1318.51", "1396.913", "1479.978", "1567.982", "1661.219", "1760", "1864.655", "1975.533"
   ];
   var postData;
-  function writeMelodyJson(noteplayed){
+  function writeMelodyJson(noteplayed, noteduration){
         // Create an entry
         postData = {
           "notes":[{
-              "duration": 0.39,
+              "duration": noteduration,
               "name": noteplayed,
               "time": 0
             }
@@ -32,14 +33,20 @@
 var synth = new Tone.Synth().toMaster();
 
 function pushSound(note) {
+    start = +new Date();
+    currentNote = note;
     synth.triggerAttack(notes[note]);
-    notesPlayed = notesPlayed + note;
-    writeMelodyJson(notes[note]);
+    console.log("Notes played: " + notesPlayed);
+    notesPlayed = notesPlayed + 1;
 }
 
 
 function stopSound() {
+    end = +new Date();
+    var noteduration = (end - start) / 1000;
+    console.log("Note duration: " + noteduration);
     synth.triggerRelease();
+    writeMelodyJson(notes[currentNote],noteduration);
 }
 
 </script>
@@ -80,54 +87,54 @@ function stopSound() {
 
     <div id='container1'>
       <div id='container2'>
-        <div class='white_key key' onmousedown='pushSound(0)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(0)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(1)' onmouseup='stopSound()'></div>
-        <div class='black_key key' onmousedown='pushSound(1)' onmouseup='stopSound()'></div>
-        <div class='white_key key' onmousedown='pushSound(2)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(2)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(3)' onmouseup='stopSound()'></div>
+        <div class='white_key key' onmousedown='pushSound(0)' onmouseup='stopSound(0)'></div>
+        <div onmousedown='pushSound(0)' onmouseup='stopSound(0)'></div>
+        <div onmousedown='pushSound(1)' onmouseup='stopSound(1)'></div>
+        <div class='black_key key' onmousedown='pushSound(1)' onmouseup='stopSound(1)'></div>
+        <div class='white_key key' onmousedown='pushSound(2)' onmouseup='stopSound(2)'></div>
+        <div onmousedown='pushSound(2)' onmouseup='stopSound(2)'></div>
+        <div onmousedown='pushSound(3)' onmouseup='stopSound(3)'></div>
         <div class='black_key key' onmousedown='pushSound(3)' onmouseup='stopSound()'></div>
         <div class='white_key key' onmousedown='pushSound(4)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(4)' onmouseup='stopSound()'></div>
+        <div onmousedown='pushSound(4)' onmouseup='stopSound(4)'></div>
         <div class='white_key key' onmousedown='pushSound(5)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(5)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(6)' onmouseup='stopSound()'></div>
+        <div onmousedown='pushSound(5)' onmouseup='stopSound(5)'></div>
+        <div onmousedown='pushSound(6)' onmouseup='stopSound(6)'></div>
         <div class='black_key key' onmousedown='pushSound(6)' onmouseup='stopSound()'></div>
         <div class='white_key key' onmousedown='pushSound(7)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(7)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(8)' onmouseup='stopSound()'></div>
+        <div onmousedown='pushSound(7)' onmouseup='stopSound(7)'></div>
+        <div onmousedown='pushSound(8)' onmouseup='stopSound(8)'></div>
         <div class='black_key key' onmousedown='pushSound(8)' onmouseup='stopSound()'></div>
         <div class='white_key key' onmousedown='pushSound(9)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(9)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(10)' onmouseup='stopSound()'></div>
+        <div onmousedown='pushSound(9)' onmouseup='stopSound(9)'></div>
+        <div onmousedown='pushSound(10)' onmouseup='stopSound(10)'></div>
         <div class='black_key key' onmousedown='pushSound(10)' onmouseup='stopSound()'></div>
         <div class='white_key key' onmousedown='pushSound(11)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(11)' onmouseup='stopSound()'></div>
+        <div onmousedown='pushSound(11)' onmouseup='stopSound(11)'></div>
         <div class='white_key key' onmousedown='pushSound(12)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(12)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(13)' onmouseup='stopSound()'></div>
+        <div onmousedown='pushSound(12)' onmouseup='stopSound(12)'></div>
+        <div onmousedown='pushSound(13)' onmouseup='stopSound(13)'></div>
         <div class='black_key key' onmousedown='pushSound(13)' onmouseup='stopSound()'></div>
         <div class='white_key key' onmousedown='pushSound(14)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(14)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(15)' onmouseup='stopSound()'></div>
+        <div onmousedown='pushSound(14)' onmouseup='stopSound(14)'></div>
+        <div onmousedown='pushSound(15)' onmouseup='stopSound(15)'></div>
         <div class='black_key key' onmousedown='pushSound(15)' onmouseup='stopSound()'></div>
         <div class='white_key key' onmousedown='pushSound(16)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(16)' onmouseup='stopSound()'></div>
+        <div onmousedown='pushSound(16)' onmouseup='stopSound(16)'></div>
         <div class='white_key key' onmousedown='pushSound(17)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(17)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(18)' onmouseup='stopSound()'></div>
+        <div onmousedown='pushSound(17)' onmouseup='stopSound(17)'></div>
+        <div onmousedown='pushSound(18)' onmouseup='stopSound(18)'></div>
         <div class='black_key key' onmousedown='pushSound(18)' onmouseup='stopSound()'></div>
         <div class='white_key key' onmousedown='pushSound(19)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(19)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(20)' onmouseup='stopSound()'></div>
+        <div onmousedown='pushSound(19)' onmouseup='stopSound(19)'></div>
+        <div onmousedown='pushSound(20)' onmouseup='stopSound(20)'></div>
         <div class='black_key key' onmousedown='pushSound(20)' onmouseup='stopSound()'></div>
         <div class='white_key key' onmousedown='pushSound(21)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(21)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(22)' onmouseup='stopSound()'></div>
+        <div onmousedown='pushSound(21)' onmouseup='stopSound(21)'></div>
+        <div onmousedown='pushSound(22)' onmouseup='stopSound(22)'></div>
         <div class='black_key key' onmousedown='pushSound(22)' onmouseup='stopSound()'></div>
         <div class='white_key key' onmousedown='pushSound(23)' onmouseup='stopSound()'></div>
-        <div onmousedown='pushSound(23)' onmouseup='stopSound()'></div>
+        <div onmousedown='pushSound(23)' onmouseup='stopSound(23)'></div>
 
       </div>
       <button onclick="writeMelodyJson()">Send update</button>
