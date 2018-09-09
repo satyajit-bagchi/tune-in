@@ -59,7 +59,7 @@ function stopSound() {
         };
         firebase.initializeApp(config);
 
-        var dbRef = firebase.database().ref().child('midislim')
+        var dbRef = firebase.database().ref().child('midiwrite')
         dbRef.on('value', snapshot => {
             console.log('retrieving')
             console.log(snapshot.val())
