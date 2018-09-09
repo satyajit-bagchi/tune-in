@@ -5,6 +5,7 @@ import firebase from 'firebase'
 import Tone from 'tone'
 import StatusIndicator from './StatusIndicator';
 import RecordingCompleteOptionsPane from './RecordingCompleteOptionsPane';
+import Keyboard from './Keyboard';
 
 class App extends Component {
   constructor(props) {
@@ -194,6 +195,7 @@ class App extends Component {
           playTimeRemaining={this.state.playTimeRemaining}
           recordTimeRemaining={this.state.recordTimeRemaining}
           recordingComplete={this.state.recording_complete} />
+        <Keyboard />
         <PlayButton
           disabled={this.state.is_playing || this.state.is_recording || this.state.server_midi[0] === undefined}
           visible={!this.state.recording_complete}
