@@ -11,7 +11,7 @@ class App extends Component {
     super(props);
 
     this.location_id = 1;
-    this.recording_interval = 2;
+    this.recording_interval = 10;
 
     this.state = {
       is_ready: false,
