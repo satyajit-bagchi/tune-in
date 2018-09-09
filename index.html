@@ -70,13 +70,14 @@
 
 </style>
   <script>
-  var notesplayed = [];
+  var notesPlayed = [];
   var notes = [
-    "440", "880", "1200", "440", "880", "1200", "440", "880", "1200", "440", "880", "1200"
+    "440", "466.164", "493.883", "523.251", "554.365", "587.33", "622.254", "659.255", "698.456", "739.989", "783.991", "830.609", "880", "932.328", "987.767", "1046.5"
   ];
+  var postData;
   function writeMelodyJson(noteplayed){
         // Create an entry
-        var postData = {
+        postData = {
           "notes":[{
               "duration": 0.39,
               "name": noteplayed,
@@ -90,7 +91,7 @@ var synth = new Tone.Synth().toMaster();
 
 function pushSound(note) {
     synth.triggerAttack(notes[note]);
-  //  notesPlayed = notesplayed + note;
+    notesPlayed = notesPlayed + note;
     writeMelodyJson(notes[note]);
 }
 
@@ -115,7 +116,6 @@ function stopSound() {
 
         var dbRef = firebase.database().ref().child('midiwrite')
         dbRef.on('value', snapshot => {
-            console.log('retrieving')
             console.log(snapshot.val())
             play(snapshot.val())
         });
@@ -237,7 +237,8 @@ function stopSound() {
         <div class='white_key key' onmousedown='pushSound(0)' onmouseup='stopSound()'></div>
         <div onmousedown='pushSound(0)' onmouseup='stopSound()'></div>
         <div onmousedown='pushSound(1)' onmouseup='stopSound()'></div>
-        <div class='black_key key' onmousedown='pushSound(1)' onmouseup='stopSound()'></div>
+        <div class='black_key key' onmousedown='pushSound(1)'
+        onmouseup='stopSound()'></div>
         <div class='white_key key' onmousedown='pushSound(2)' onmouseup='stopSound()'></div>
         <div onmousedown='pushSound(2)' onmouseup='stopSound()'></div>
         <div onmousedown='pushSound(3)' onmouseup='stopSound()'></div>
@@ -307,6 +308,7 @@ function stopSound() {
         <div class='white_key key' onmousedown='pushSound(11)' onmouseup='stopSound()'></div>
         <div onmousedown='pushSound(11)' onmouseup='stopSound()'></div>
       </div>
+      <button onclick="writeMelodyJson()">Send update</button>
     </div>
 
 
