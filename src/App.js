@@ -228,7 +228,7 @@ class App extends Component {
         newState.is_playing_back = false
         obj.setState(newState)
         Tone.Transport.stop()
-      }      
+      }
     }).start(finishTime);
 
     Tone.Transport.start();
